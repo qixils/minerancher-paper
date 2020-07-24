@@ -1,12 +1,13 @@
-package io.github.lexikiq.slimerancher;
+package io.github.lexikiq.slimerancher.slimes.behaviors;
 
-import io.github.lexikiq.slimerancher.slimetypes.Tarr;
+import io.github.lexikiq.slimerancher.SlimeRancher;
+import io.github.lexikiq.slimerancher.SlimeType;
+import io.github.lexikiq.slimerancher.slimes.Tarr;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Slime;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 public class TarrEat extends BukkitRunnable {
 
-    private final JavaPlugin plugin;
+    private final SlimeRancher plugin;
     private final UUID tarr;
     private final UUID slime;
     private final int slimeDistanceLimit;
@@ -25,7 +26,7 @@ public class TarrEat extends BukkitRunnable {
     private Vector destLocation;
     private Vector eatDirection;
 
-    public TarrEat(JavaPlugin plugin, UUID tarr, UUID slime, int slimeDistanceLimit) {
+    public TarrEat(SlimeRancher plugin, UUID tarr, UUID slime, int slimeDistanceLimit) {
         this.plugin = plugin;
         this.tarr = tarr;
         this.slime = slime;
@@ -40,7 +41,9 @@ public class TarrEat extends BukkitRunnable {
         slime.teleport(slimeLoc.subtract(eatDirection));
 
         if (frameNumber >= ANIMATION_FRAME_COUNT) {
-            new Tarr().convertSlimeEntity(slime);
+            if (plugin.loadedSlimes.containsKey(slime.getUniqueId())) // this should always be true but just in case
+                plugin.loadedSlimes.get(slime.getUniqueId()).destroy();
+            plugin.loadedSlimes.put(slime.getUniqueId(), new Tarr(slime, plugin));
             tarr.setTarget(null);
             tarr.setAI(true);
             slime.setAI(true);
@@ -75,7 +78,7 @@ public class TarrEat extends BukkitRunnable {
             this.cancel();
             return;
         }
-        if (new Tarr().isSlimeEntity(slimeEntity) || !slimeEntity.hasAI() || entityDistance(tarrEntity, slimeEntity) > slimeDistanceLimit) {
+        if (SlimeType.TARR.isType(slimeEntity) || !slimeEntity.hasAI() || entityDistance(tarrEntity, slimeEntity) > slimeDistanceLimit) {
             // cancel if slime is now a Tarr, was eaten by another Tarr first, or is too far away
             tarrEntity.setTarget(null);
             this.cancel();
@@ -90,6 +93,8 @@ public class TarrEat extends BukkitRunnable {
             destLocation = tarrEntity.getEyeLocation().toVector().midpoint(tarrEntity.getLocation().toVector());
             eatDirection = slimeVec.subtract(destLocation).multiply(1.0 / ANIMATION_FRAME_COUNT);
             animate(slimeEntity, tarrEntity);
+            return;
         }
+        tarrEntity.setTarget(slimeEntity);
     }
 }
