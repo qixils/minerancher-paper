@@ -1,4 +1,4 @@
-# Minerancher ![Maven CI](https://github.com/lexikiq/minecraft-slime-rancher/workflows/Maven%20CI/badge.svg?event=push)
+# Minerancher [![Maven CI](https://github.com/lexikiq/minecraft-slime-rancher/workflows/Maven%20CI/badge.svg?event=push)](https://github.com/lexikiq/minecraft-slime-rancher/actions?query=workflow%3A%22Maven+CI%22)
 
 Minerancher is a heavily work-in-progress 1.16.1 [Paper](https://papermc.io/) plugin that is aiming to recreate [Slime Rancher](http://slimerancher.com/) inside of Minecraft.
 
@@ -7,6 +7,8 @@ Code is definitely sloppy as this is a learning experience for me for Java and p
 ## Installation
 
 Detailed steps will be included later, but you'll want to compile the package through maven and drop it into your server's plugin folder (Spigot is untested and may not work, pls use Paper)
+
+Builds are alternatively available for each commit from the [Actions tab](https://github.com/lexikiq/minecraft-slime-rancher/actions?query=workflow%3A%22Maven+CI%22).
 
 Users should install [OptiFine](https://optifine.net/downloads) and the [project's resource pack](https://github.com/lexikiq/minecraft-slime-rancher-resource-pack) to see the Slime textures. (For bonus points, add it as a server resource pack!)
 

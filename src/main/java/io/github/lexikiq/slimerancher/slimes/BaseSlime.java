@@ -19,11 +19,13 @@ public abstract class BaseSlime { // should this be abstract ?
         this.slime = slime;
         try {
             BaseBehavior behavior = getBehavior().getConstructor(SlimeRancher.class, Slime.class).newInstance(plugin, slime);
-            behaviorTask = behavior.runTaskTimer(plugin, 0, 20);
+            behaviorTask = behavior.runTaskTimer(plugin, 0, getBehaviorDelay());
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
+
+    protected long getBehaviorDelay() {return 2;}
 
     public SlimeType getType() {return SlimeType.SLIME;}
 
