@@ -29,6 +29,7 @@ public class BasicListeners implements Listener {
 
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
+        // on world load, find slime entities
         for (Entity entity : event.getWorld().getEntitiesByClass(Slime.class)) {
             UUID key = entity.getUniqueId();
             if (!plugin.loadedSlimes.containsKey(key)) {
@@ -86,7 +87,7 @@ public class BasicListeners implements Listener {
     @EventHandler
     public void onMobDeath(EntityDamageByEntityEvent event) {
         if (event.getEntityType() == EntityType.SLIME && event.getEntity().isDead()) {
-            Slime slime = (Slime) event.getEntity();
+            // Slime slime = (Slime) event.getEntity();
             event.setCancelled(true);
         }
     }

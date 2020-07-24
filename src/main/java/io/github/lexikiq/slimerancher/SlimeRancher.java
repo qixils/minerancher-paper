@@ -12,7 +12,7 @@ public final class SlimeRancher extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new BasicListeners(this);
+        new BasicListeners(this); // event listener
         Bukkit.getServer().getLogger().info("Slime Rancher loaded!");
     }
 }

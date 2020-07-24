@@ -32,6 +32,7 @@ public enum SlimeType {
 	}
 
 	public boolean isType(Entity entity) {
+		// returns if the input entity is the same type as the enum
 		if (entity == null || entity.getType() != EntityType.SLIME || entity.getCustomName() == null)
 			return false;
 		List<String> entityName = Arrays.asList(entity.getCustomName().split(" "));
