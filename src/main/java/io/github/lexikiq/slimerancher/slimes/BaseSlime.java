@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class BaseSlime { // should this be abstract ?
+public abstract class BaseSlime { // should this be abstract ?
     protected final Slime slime;
     protected BukkitTask behaviorTask = null;
     public BaseSlime(Slime slime, SlimeRancher plugin) {
