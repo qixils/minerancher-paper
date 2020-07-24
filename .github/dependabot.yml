@@ -4,8 +4,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+      time: "12:00"
+      timezone: "America/New_York"
+    assignees:
+      - "lexikiq"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+      time: "12:00"
+      timezone: "America/New_York"
+    assignees:
+      - "lexikiq"
