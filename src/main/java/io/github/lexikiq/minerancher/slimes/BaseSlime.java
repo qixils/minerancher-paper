@@ -15,7 +15,6 @@ public @Data abstract class BaseSlime { // should this be abstract ?
     protected BukkitTask behaviorTask = null;
     protected long behaviorDelay = 2;
     protected SlimeType type = SlimeType.SLIME;
-    protected String name;
     protected int size = 1;
     protected Class<? extends BaseBehavior> behavior;
     protected boolean wild = true;
@@ -36,7 +35,7 @@ public @Data abstract class BaseSlime { // should this be abstract ?
 
     protected abstract void initializeData();
 
-    public String getDisplayName() {return getName() + " " + getType();} // todo: string format ?
+    public String getDisplayName() {return getType().toString();}
 
     protected Class<? extends BaseBehavior> getBehavior() {
         return SlimeBehavior.class;

@@ -1,6 +1,7 @@
 package io.github.lexikiq.minerancher.slimes;
 
 import io.github.lexikiq.minerancher.Minerancher;
+import io.github.lexikiq.minerancher.SlimeType;
 import org.bukkit.entity.Slime;
 
 public class PinkSlime extends BaseSlime {
@@ -10,6 +11,6 @@ public class PinkSlime extends BaseSlime {
 
     @Override
     protected void initializeData() {
-        name = "Pink";
+        type= SlimeType.PINK_SLIME;
     }
 }

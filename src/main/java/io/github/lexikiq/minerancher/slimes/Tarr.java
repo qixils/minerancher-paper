@@ -6,20 +6,16 @@ import io.github.lexikiq.minerancher.slimes.behaviors.BaseBehavior;
 import io.github.lexikiq.minerancher.slimes.behaviors.TarrBehavior;
 import org.bukkit.entity.Slime;
 
-public class Tarr extends BaseLargo {
+public class Tarr extends BaseSlime {
     public Tarr(Slime slime, Minerancher plugin) {
         super(slime, plugin);
     }
 
     @Override
     protected void initializeData() {
-        super.initializeData();
-        name = "Tarr";
+        size = 2;
         type = SlimeType.TARR;
     }
-
-    @Override
-    public String getDisplayName() {return getName();}
 
     @Override
     protected Class<? extends BaseBehavior> getBehavior() {
