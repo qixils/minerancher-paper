@@ -7,7 +7,7 @@ import org.bukkit.entity.EntityType;
 
 public enum SlimeType {
 	SLIME (BaseSlime.class),
-	LARGO (BaseLargo.class),
+	LARGO (Largo.class),
 	TARR (Tarr.class),
 	PINK_SLIME (PinkSlime.class),
 	HONEY_SLIME (HoneySlime.class)
