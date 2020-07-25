@@ -12,13 +12,14 @@ public class Tarr extends BaseLargo {
     }
 
     @Override
-    public String getName() {return "Tarr";}
+    protected void initializeData() {
+        super.initializeData();
+        name = "Tarr";
+        type = SlimeType.TARR;
+    }
 
     @Override
     public String getDisplayName() {return getName();}
-
-    @Override
-    public SlimeType getType() {return SlimeType.TARR;}
 
     @Override
     protected Class<? extends BaseBehavior> getBehavior() {

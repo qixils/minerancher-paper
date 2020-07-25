@@ -41,9 +41,7 @@ public class TarrEat extends BukkitRunnable {
         slime.teleport(slimeLoc.subtract(eatDirection));
 
         if (frameNumber >= ANIMATION_FRAME_COUNT) {
-            if (plugin.loadedSlimes.containsKey(slime.getUniqueId())) // this should always be true but just in case
-                plugin.loadedSlimes.get(slime.getUniqueId()).destroy();
-            plugin.loadedSlimes.put(slime.getUniqueId(), new Tarr(slime, plugin));
+            plugin.registerSlime(slime, new Tarr(slime, plugin));
             tarr.setTarget(null);
             tarr.setAI(true);
             slime.setAI(true);

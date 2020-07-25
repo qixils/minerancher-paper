@@ -5,10 +5,6 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public enum SlimeType {
 	SLIME (BaseSlime.class),
 	LARGO (BaseLargo.class),
@@ -36,8 +32,6 @@ public enum SlimeType {
 		// todo: largos
 		if (entity == null || entity.getType() != EntityType.SLIME || entity.getCustomName() == null)
 			return false;
-		List<String> entityName = Arrays.asList(entity.getCustomName().split(" "));
-		Collections.reverse(entityName);
-		return entityName.get(0).equals(toString());
+		return entity.getCustomName().equals(toString());
 	}
 }

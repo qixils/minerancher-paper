@@ -11,8 +11,8 @@ import java.util.List;
 
 public class TarrBehavior extends BaseBehavior {
     // search range for
-    final int TARGET_SEARCH_RANGE = 25;
-    final float TARGET_SEARCH_HEIGHT = (float) TARGET_SEARCH_RANGE / 2;
+    private final int TARGET_SEARCH_RANGE = 25;
+    private final float TARGET_SEARCH_HEIGHT = (float) TARGET_SEARCH_RANGE / 2;
 
     public TarrBehavior(Minerancher plugin, Slime slime) {
         super(plugin, slime);

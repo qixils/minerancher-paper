@@ -9,5 +9,7 @@ public class HoneySlime extends BaseSlime {
     }
 
     @Override
-    public String getName() {return "Honey";}
+    protected void initializeData() {
+        name = "Honey";
+    }
 }

@@ -9,5 +9,7 @@ public class PinkSlime extends BaseSlime {
     }
 
     @Override
-    public String getName() {return "Pink";}
+    protected void initializeData() {
+        name = "Pink";
+    }
 }

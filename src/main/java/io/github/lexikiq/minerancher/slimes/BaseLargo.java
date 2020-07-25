@@ -10,10 +10,8 @@ public abstract class BaseLargo extends BaseSlime {
     }
 
     @Override
-    public SlimeType getType() {return SlimeType.LARGO;}
-
-    @Override
-    public int getSize() {
-        return 2;
+    protected void initializeData() {
+        size = 2;
+        type = SlimeType.LARGO;
     }
 }

@@ -4,15 +4,24 @@ import io.github.lexikiq.minerancher.Minerancher;
 import io.github.lexikiq.minerancher.SlimeType;
 import io.github.lexikiq.minerancher.slimes.behaviors.BaseBehavior;
 import io.github.lexikiq.minerancher.slimes.behaviors.SlimeBehavior;
+import lombok.Data;
 import org.bukkit.entity.Slime;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class BaseSlime { // should this be abstract ?
+public @Data abstract class BaseSlime { // should this be abstract ?
     protected final Slime slime;
     protected BukkitTask behaviorTask = null;
+    protected long behaviorDelay = 2;
+    protected SlimeType type = SlimeType.SLIME;
+    protected String name;
+    protected int size = 1;
+    protected Class<? extends BaseBehavior> behavior;
+    protected boolean wild = true;
+
     public BaseSlime(Slime slime, Minerancher plugin) {
+        initializeData();
         slime.setSize(getSize());
         slime.setCustomName(getDisplayName());
         slime.setCustomNameVisible(false);
@@ -25,15 +34,9 @@ public abstract class BaseSlime { // should this be abstract ?
         }
     }
 
-    protected long getBehaviorDelay() {return 2;}
-
-    public SlimeType getType() {return SlimeType.SLIME;}
-
-    public String getName() {return "";}
+    protected abstract void initializeData();
 
     public String getDisplayName() {return getName() + " " + getType();} // todo: string format ?
-
-    public int getSize() {return 1;}
 
     protected Class<? extends BaseBehavior> getBehavior() {
         return SlimeBehavior.class;
