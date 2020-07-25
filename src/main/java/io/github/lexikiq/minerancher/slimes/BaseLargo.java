@@ -1,11 +1,11 @@
-package io.github.lexikiq.slimerancher.slimes;
+package io.github.lexikiq.minerancher.slimes;
 
-import io.github.lexikiq.slimerancher.SlimeRancher;
-import io.github.lexikiq.slimerancher.SlimeType;
+import io.github.lexikiq.minerancher.Minerancher;
+import io.github.lexikiq.minerancher.SlimeType;
 import org.bukkit.entity.Slime;
 
 public abstract class BaseLargo extends BaseSlime {
-    public BaseLargo(Slime slime, SlimeRancher plugin) {
+    public BaseLargo(Slime slime, Minerancher plugin) {
         super(slime, plugin);
     }
 

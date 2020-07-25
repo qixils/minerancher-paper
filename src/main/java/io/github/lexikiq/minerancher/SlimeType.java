@@ -1,6 +1,6 @@
-package io.github.lexikiq.slimerancher;
+package io.github.lexikiq.minerancher;
 
-import io.github.lexikiq.slimerancher.slimes.*;
+import io.github.lexikiq.minerancher.slimes.*;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -33,6 +33,7 @@ public enum SlimeType {
 
 	public boolean isType(Entity entity) {
 		// returns if the input entity is the same type as the enum
+		// todo: largos
 		if (entity == null || entity.getType() != EntityType.SLIME || entity.getCustomName() == null)
 			return false;
 		List<String> entityName = Arrays.asList(entity.getCustomName().split(" "));

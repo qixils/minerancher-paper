@@ -1,6 +1,6 @@
-name: SlimeRancher
-version: 1.0
-main: io.github.lexikiq.slimerancher.SlimeRancher
+name: Minerancher
+version: 1.0-SNAPSHOT
+main: io.github.lexikiq.minerancher.Minerancher
 description: Recreation of Slime Rancher in Minecraft
 author: lexikiq
 api-version: 1.16

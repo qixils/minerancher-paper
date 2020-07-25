@@ -1,10 +1,10 @@
-package io.github.lexikiq.slimerancher.slimes;
+package io.github.lexikiq.minerancher.slimes;
 
-import io.github.lexikiq.slimerancher.SlimeRancher;
+import io.github.lexikiq.minerancher.Minerancher;
 import org.bukkit.entity.Slime;
 
 public class PinkSlime extends BaseSlime {
-    public PinkSlime(Slime slime, SlimeRancher plugin) {
+    public PinkSlime(Slime slime, Minerancher plugin) {
         super(slime, plugin);
     }
 

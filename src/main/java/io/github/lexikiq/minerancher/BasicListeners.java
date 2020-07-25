@@ -1,8 +1,8 @@
-package io.github.lexikiq.slimerancher;
+package io.github.lexikiq.minerancher;
 
-import io.github.lexikiq.slimerancher.slimes.HoneySlime;
-import io.github.lexikiq.slimerancher.slimes.PinkSlime;
-import io.github.lexikiq.slimerancher.slimes.Tarr;
+import io.github.lexikiq.minerancher.slimes.HoneySlime;
+import io.github.lexikiq.minerancher.slimes.PinkSlime;
+import io.github.lexikiq.minerancher.slimes.Tarr;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Slime;
@@ -20,9 +20,9 @@ import java.util.UUID;
 
 public class BasicListeners implements Listener {
     private final Random rand = new Random();
-    private final SlimeRancher plugin;
+    private final Minerancher plugin;
 
-    public BasicListeners(SlimeRancher plugin) {
+    public BasicListeners(Minerancher plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -30,13 +30,14 @@ public class BasicListeners implements Listener {
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
         // on world load, find slime entities
+        // todo: ignore world if already loaded
         for (Entity entity : event.getWorld().getEntitiesByClass(Slime.class)) {
             UUID key = entity.getUniqueId();
             if (!plugin.loadedSlimes.containsKey(key)) {
                 for (SlimeType enumType : SlimeType.values()) {
                     if (enumType.isType(entity)) {
                         try {
-                            plugin.loadedSlimes.put(key, enumType.getSlimeClass().getConstructor(Slime.class, SlimeRancher.class).newInstance((Slime) entity, plugin));
+                            plugin.loadedSlimes.put(key, enumType.getSlimeClass().getConstructor(Slime.class, Minerancher.class).newInstance((Slime) entity, plugin));
                         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
                             e.printStackTrace();
                         }

@@ -1,7 +1,7 @@
-package io.github.lexikiq.slimerancher.slimes.behaviors;
+package io.github.lexikiq.minerancher.slimes.behaviors;
 
-import io.github.lexikiq.slimerancher.SlimeRancher;
-import io.github.lexikiq.slimerancher.SlimeType;
+import io.github.lexikiq.minerancher.Minerancher;
+import io.github.lexikiq.minerancher.SlimeType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Slime;
@@ -10,7 +10,11 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.List;
 
 public class TarrBehavior extends BaseBehavior {
-    public TarrBehavior(SlimeRancher plugin, Slime slime) {
+    // search range for
+    final int TARGET_SEARCH_RANGE = 25;
+    final float TARGET_SEARCH_HEIGHT = (float) TARGET_SEARCH_RANGE / 2;
+
+    public TarrBehavior(Minerancher plugin, Slime slime) {
         super(plugin, slime);
     }
 
@@ -22,6 +26,8 @@ public class TarrBehavior extends BaseBehavior {
     @Override
     public void run() {
         // this function manages the Tarr's hunting behavior
+
+        // first, we don't want to do any behavior if an eating task is in progress
         if (currentTask != null) {
             if (currentTask.isCancelled())
                 currentTask = null;
@@ -29,15 +35,11 @@ public class TarrBehavior extends BaseBehavior {
                 return;
         }
 
-        final int TARGET_SEARCH_RANGE = 25;
-        final float TARGET_SEARCH_HEIGHT = (float) TARGET_SEARCH_RANGE / 2;
-
-        // get target
+        // get tarr's current target (may be null)
         Entity targetedEntity = slime.getTargetEntity(TARGET_SEARCH_RANGE);
         // clear target if it is/has become a Tarr
         if (SlimeType.TARR.isType(targetedEntity)) {
             slime.setTarget(null);
-            targetedEntity = null; // idk if this is necessary?
         }
         if (targetedEntity != null)
             return; // Tarr already has a target, ignore

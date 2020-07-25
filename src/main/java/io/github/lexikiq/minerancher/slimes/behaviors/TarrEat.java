@@ -1,8 +1,8 @@
-package io.github.lexikiq.slimerancher.slimes.behaviors;
+package io.github.lexikiq.minerancher.slimes.behaviors;
 
-import io.github.lexikiq.slimerancher.SlimeRancher;
-import io.github.lexikiq.slimerancher.SlimeType;
-import io.github.lexikiq.slimerancher.slimes.Tarr;
+import io.github.lexikiq.minerancher.Minerancher;
+import io.github.lexikiq.minerancher.SlimeType;
+import io.github.lexikiq.minerancher.slimes.Tarr;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class TarrEat extends BukkitRunnable {
 
-    private final SlimeRancher plugin;
+    private final Minerancher plugin;
     private final UUID tarr;
     private final UUID slime;
     private final int slimeDistanceLimit;
@@ -26,7 +26,7 @@ public class TarrEat extends BukkitRunnable {
     private Vector destLocation;
     private Vector eatDirection;
 
-    public TarrEat(SlimeRancher plugin, UUID tarr, UUID slime, int slimeDistanceLimit) {
+    public TarrEat(Minerancher plugin, UUID tarr, UUID slime, int slimeDistanceLimit) {
         this.plugin = plugin;
         this.tarr = tarr;
         this.slime = slime;
