@@ -10,6 +10,7 @@ public enum SlimeType {
 	LARGO (Largo.class),
 	TARR (Tarr.class),
 	PINK_SLIME (PinkSlime.class),
+	ROCK_SLIME (RockSlime.class),
 	HONEY_SLIME (HoneySlime.class)
 	;
 

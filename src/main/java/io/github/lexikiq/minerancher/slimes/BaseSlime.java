@@ -21,12 +21,12 @@ public @Data abstract class BaseSlime {
     protected boolean wild = true; // will be false if it has been in a corral ig
 
     public BaseSlime(Slime slime, Minerancher plugin) {
+        this.slime = slime;
         initializeData(); // initialize variables from subclasses
         // set entity's properties
         slime.setSize(size);
         slime.setCustomName(getDisplayName());
         slime.setCustomNameVisible(false);
-        this.slime = slime;
         // run the behavior loop (this is really jank i know)
         try {
             BaseBehavior behavior = getBehavior().getConstructor(Minerancher.class, Slime.class).newInstance(plugin, slime);
