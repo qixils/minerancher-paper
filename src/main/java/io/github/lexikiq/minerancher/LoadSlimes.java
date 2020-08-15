@@ -40,12 +40,8 @@ public class LoadSlimes extends BukkitRunnable {
 			UUID key = entity.getUniqueId();
 			if (plugin.loadedSlimes.containsKey(key))
 				continue;
-			for (SlimeType enumType : SlimeType.values()) {
-				if (enumType.isType(entity)) {
-					plugin.registerSlime((Slime) entity, enumType);
-					break;
-				}
-			}
+			SlimeType enumType = SlimeType.getByName(entity.getCustomName());
+			if (enumType != null) plugin.registerSlime((Slime) entity, enumType);
 		}
 
 		// remove wild slimes far away from any player

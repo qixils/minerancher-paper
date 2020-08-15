@@ -38,7 +38,7 @@ public class TarrBehavior extends BaseBehavior {
         // get tarr's current target (may be null)
         Entity targetedEntity = slime.getTargetEntity(TARGET_SEARCH_RANGE);
         // clear target if it is/has become a Tarr
-        if (SlimeType.TARR.isType(targetedEntity)) {
+        if (SlimeType.getByName(targetedEntity) == SlimeType.TARR) {
             slime.setTarget(null);
         }
         if (targetedEntity != null)
@@ -50,7 +50,7 @@ public class TarrBehavior extends BaseBehavior {
         nearbyEntities.sort((Entity e1, Entity e2) -> (int) (entityDistance(e1, slime) - entityDistance(e2, slime)));
         for (Entity target : nearbyEntities) {
             // if target isn't a slime/is a Tarr/is in a cutscene (has no AI), skip it
-            if (target.getType() != EntityType.SLIME || SlimeType.TARR.isType(target) || !((Slime) target).hasAI()) {
+            if (target.getType() != EntityType.SLIME || SlimeType.getByName(target) == SlimeType.TARR || !((Slime) target).hasAI()) {
                 continue;
             }
             currentTask = new TarrEat(plugin, slime.getUniqueId(), target.getUniqueId(), TARGET_SEARCH_RANGE).runTaskTimer(plugin, 0, 3);

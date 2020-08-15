@@ -76,7 +76,7 @@ public class TarrEat extends BukkitRunnable {
             this.cancel();
             return;
         }
-        if (SlimeType.TARR.isType(slimeEntity) || !slimeEntity.hasAI() || entityDistance(tarrEntity, slimeEntity) > slimeDistanceLimit) {
+        if (SlimeType.getByName(slimeEntity) == SlimeType.TARR || !slimeEntity.hasAI() || entityDistance(tarrEntity, slimeEntity) > slimeDistanceLimit) {
             // cancel if slime is now a Tarr, was eaten by another Tarr first, or is too far away
             tarrEntity.setTarget(null);
             this.cancel();

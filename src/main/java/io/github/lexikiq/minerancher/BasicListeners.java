@@ -28,13 +28,13 @@ public class BasicListeners implements Listener {
                 event.setCancelled(true);
             } else {
                 Slime slime = (Slime) event.getEntity();
-                BaseSlime toRegister;
+                SlimeType toRegister;
                 int nextInt = rand.nextInt(3);
                 switch (nextInt) {
-                    case 0: toRegister = new PinkSlime(slime, plugin); break;
-                    case 1: toRegister = new HoneySlime(slime, plugin); break;
-                    case 2: toRegister = new RockSlime(slime, plugin); break;
-                    default:
+                    case 0: toRegister = SlimeType.PINK_SLIME; break;
+                    case 1: toRegister = SlimeType.HONEY_SLIME; break;
+                    case 2: toRegister = SlimeType.ROCK_SLIME; break;
+                    default: // make intellij not complain about unknown values
                         throw new IllegalStateException("Unexpected value??: " + nextInt);
                 }
                 plugin.registerSlime(slime, toRegister);

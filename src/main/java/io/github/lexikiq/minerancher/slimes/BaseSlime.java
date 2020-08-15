@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 public @Data abstract class BaseSlime {
     protected final Slime slime;
     protected int size = 1;
-    protected SlimeType type = SlimeType.SLIME;
+    protected SlimeType type;
     protected Class<? extends BaseBehavior> behavior = SlimeBehavior.class; // class to run the behavior loop on
 
     protected long behaviorDelay = 2; // delay between runs of the behavior code in ticks
