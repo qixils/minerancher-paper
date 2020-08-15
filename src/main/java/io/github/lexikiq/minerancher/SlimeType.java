@@ -35,11 +35,6 @@ public enum SlimeType {
 		this.colorID = colorID;
 	}
 
-	@Override
-	public String toString() {
-		return name;
-	}
-
 	public String getLargoNameColor() { // returns a string
 		if (colorID == 0x00) return null;
 		String hexValue = String.format("%02x", colorID);

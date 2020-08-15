@@ -38,7 +38,7 @@ public @Data abstract class BaseSlime {
 
     protected abstract void initializeData(); // for subclasses to set variables like size, type, etc
 
-    public String getDisplayName() {return getType().toString();}
+    public String getDisplayName() {return getType().getName();}
 
     public void destroy() { // stops the current task. called when slime is being deleted
         if (behaviorTask != null)
