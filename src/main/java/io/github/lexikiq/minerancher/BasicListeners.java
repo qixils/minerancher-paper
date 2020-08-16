@@ -1,16 +1,18 @@
 package io.github.lexikiq.minerancher;
 
-import io.github.lexikiq.minerancher.slimes.*;
+import io.github.lexikiq.minerancher.slimes.BaseSlime;
+import io.github.lexikiq.minerancher.slimes.Tarr;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class BasicListeners implements Listener {
     private final Random rand = new Random();
@@ -44,11 +46,20 @@ public class BasicListeners implements Listener {
 
     @EventHandler
     public void onMobTarget(EntityTargetLivingEntityEvent event) {
-        if (event.getEntityType() == EntityType.SLIME) {
-            Slime slime = (Slime) event.getEntity();
-            if (!(slime.getCustomName() != null && slime.getCustomName().equals("Tarr"))) {
-                event.setCancelled(true);
-            }
+        if (event.getEntity().getType() == EntityType.SLIME) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler()
+    public void onMobDeath(EntityDeathEvent event) {
+        // properly remove slime instances on death
+        UUID key = event.getEntity().getUniqueId();
+        BaseSlime slime = plugin.loadedSlimes.get(key);
+        if (slime != null) {
+            slime.destroy();
+            plugin.loadedSlimes.remove(key);
+            slime.getSlime().remove(); // workaround for semicommon bug where slimes will ignore death
         }
     }
 
@@ -64,14 +75,6 @@ public class BasicListeners implements Listener {
             //    plugin.getLogger().info(String.valueOf(i));
             //}
 
-        }
-    }
-
-    @EventHandler
-    public void onMobDeath(EntityDamageByEntityEvent event) {
-        if (event.getEntityType() == EntityType.SLIME && event.getEntity().isDead()) {
-            // Slime slime = (Slime) event.getEntity();
-            event.setCancelled(true);
         }
     }
 }

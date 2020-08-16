@@ -2,11 +2,14 @@ package io.github.lexikiq.minerancher.slimes.behaviors;
 
 import io.github.lexikiq.minerancher.Minerancher;
 import io.github.lexikiq.minerancher.SlimeType;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TarrBehavior extends BaseBehavior {
@@ -49,10 +52,18 @@ public class TarrBehavior extends BaseBehavior {
         // sort them
         nearbyEntities.sort((Entity e1, Entity e2) -> (int) (entityDistance(e1, slime) - entityDistance(e2, slime)));
         for (Entity target : nearbyEntities) {
-            // if target isn't a slime/is a Tarr/is in a cutscene (has no AI), skip it
-            if (target.getType() != EntityType.SLIME || SlimeType.getByName(target) == SlimeType.TARR || !((Slime) target).hasAI()) {
-                continue;
+            EntityType targetType = target.getType();
+            // ignore dead mobs and non-slimes/players
+            if (target.isDead() || !(Arrays.asList(EntityType.SLIME, EntityType.PLAYER).contains(targetType))) continue;
+            // ignore Tarrs and slimes in cutscenes (they don't have AI)
+            if (targetType == EntityType.SLIME && (SlimeType.getByName(target) == SlimeType.TARR || !((Slime) target).hasAI())) continue;
+            // ignore creative/invincible players
+            if (targetType == EntityType.PLAYER) {
+                Player player = (Player) target;
+                if (player.isInvulnerable() || Arrays.asList(GameMode.CREATIVE, GameMode.SPECTATOR).contains(player.getGameMode())) continue;
             }
+            String displayName = (targetType == EntityType.SLIME) ? target.getCustomName() : ((Player) target).getName();
+            plugin.getServer().getLogger().info(String.format("Tarr (%s) is now targeting %s %s (%s)", slime.getUniqueId(), targetType, displayName, target.getUniqueId()));
             currentTask = new TarrEat(plugin, slime.getUniqueId(), target.getUniqueId(), TARGET_SEARCH_RANGE).runTaskTimer(plugin, 0, 3);
         }
     }

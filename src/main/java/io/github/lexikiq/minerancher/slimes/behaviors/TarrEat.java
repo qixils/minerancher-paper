@@ -3,14 +3,15 @@ package io.github.lexikiq.minerancher.slimes.behaviors;
 import io.github.lexikiq.minerancher.Minerancher;
 import io.github.lexikiq.minerancher.SlimeType;
 import io.github.lexikiq.minerancher.slimes.Tarr;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Slime;
+import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class TarrEat extends BukkitRunnable {
@@ -53,19 +54,34 @@ public class TarrEat extends BukkitRunnable {
 
     @Override
     public void run() {
+        plugin.getServer().broadcastMessage("help");
         // this function manages the Tarr's hunting behavior
         final double EAT_ANIMATION_DISTANCE = 2;
 
         Slime tarrEntity = (Slime) plugin.getServer().getEntity(tarr);
-        Slime slimeEntity = (Slime) plugin.getServer().getEntity(slime);
-        if (tarrEntity == null || slimeEntity == null) { // if one of the mobs doesn't exist anymore,
-            if (tarrEntity != null) { // clear target
+        LivingEntity livingEntity = (LivingEntity) plugin.getServer().getEntity(slime);
+        if (tarrEntity == null || livingEntity == null || tarrEntity.isDead() || livingEntity.isDead()) {
+            // if one of the mobs doesn't exist anymore, clear the target and cancel
+            if (tarrEntity != null) {
                 tarrEntity.setTarget(null);
             }
-            // and cancel
             this.cancel();
             return;
         }
+        if (livingEntity.getType() == EntityType.PLAYER) {
+            // no special behavior/animations needed if attacking a player
+            LivingEntity entityTarget;
+            if (livingEntity.isInvulnerable() || Arrays.asList(GameMode.CREATIVE, GameMode.SPECTATOR).contains(((Player) livingEntity).getGameMode())) {
+                this.cancel();
+                entityTarget = null;
+            } else {
+                entityTarget = livingEntity;
+            }
+            tarrEntity.setTarget(entityTarget);
+            return;
+        }
+        Slime slimeEntity = (Slime) livingEntity;
+
         if (frameNumber > 0) { // continue animating
             animate(slimeEntity, tarrEntity);
             return;

@@ -4,6 +4,7 @@ import io.github.lexikiq.minerancher.slimes.*;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,6 +74,7 @@ public enum SlimeType {
 	@Nullable
 	public static SlimeType getByName(@Nullable Entity entity) {
 		if (entity == null) return null;
+		if (entity.getType() != EntityType.SLIME) return null;
 		return getByName(entity.getCustomName());
 	}
 
