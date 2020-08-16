@@ -54,7 +54,6 @@ public class TarrEat extends BukkitRunnable {
 
     @Override
     public void run() {
-        plugin.getServer().broadcastMessage("help");
         // this function manages the Tarr's hunting behavior
         final double EAT_ANIMATION_DISTANCE = 2;
 
