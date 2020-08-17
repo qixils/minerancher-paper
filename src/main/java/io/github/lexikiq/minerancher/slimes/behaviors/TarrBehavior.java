@@ -63,7 +63,7 @@ public class TarrBehavior extends BaseBehavior {
                 if (player.isInvulnerable() || Arrays.asList(GameMode.CREATIVE, GameMode.SPECTATOR).contains(player.getGameMode())) continue;
             }
             String displayName = (targetType == EntityType.SLIME) ? target.getCustomName() : ((Player) target).getName();
-            plugin.getServer().getLogger().info(String.format("Tarr (%s) is now targeting %s %s (%s)", slime.getUniqueId(), targetType, displayName, target.getUniqueId()));
+            plugin.getServer().getLogger().finest(String.format("Tarr (%s) is now targeting %s %s (%s)", slime.getUniqueId(), targetType, displayName, target.getUniqueId()));
             currentTask = new TarrEat(plugin, slime.getUniqueId(), target.getUniqueId(), TARGET_SEARCH_RANGE).runTaskTimer(plugin, 0, 3);
         }
     }

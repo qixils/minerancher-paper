@@ -72,7 +72,7 @@ public final class Minerancher extends JavaPlugin {
     }
 
     public void registerSlime(Slime entity, BaseSlime newSlime) {
-        // is it a bad idea to initialize allow initializing a class beforehand? is there a slight chance tasks could overlap? i don't *think* so...
+        // is it a bad idea to allow initializing a class beforehand? is there a slight chance tasks could overlap? i don't *think* so...
         deleteOldSlime(entity, true);
         loadedSlimes.put(entity.getUniqueId(), newSlime);
     }

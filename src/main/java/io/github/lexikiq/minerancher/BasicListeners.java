@@ -1,7 +1,7 @@
 package io.github.lexikiq.minerancher;
 
 import io.github.lexikiq.minerancher.slimes.BaseSlime;
-import io.github.lexikiq.minerancher.slimes.Tarr;
+import io.github.lexikiq.minerancher.slimes.Largo;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
@@ -67,9 +67,13 @@ public class BasicListeners implements Listener {
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         if (event.getRightClicked().getType() == EntityType.SLIME) {
             Slime slime = (Slime) event.getRightClicked();
-            BaseSlime loadedSlime = plugin.loadedSlimes.get(slime.getUniqueId());
-            if (loadedSlime != null && loadedSlime.getType() == SlimeType.TARR) return; // avoid duplicate entries
-            plugin.registerSlime(slime, new Tarr(slime, plugin));
+            if (event.getPlayer().isSneaking()) {
+                plugin.registerSlime(slime, SlimeType.TARR, true);
+            } else {
+                plugin.registerSlime(slime, new Largo(slime, plugin, SlimeType.PINK_SLIME, SlimeType.ROCK_SLIME));
+            }
+            // slime.setCustomName("\uF801Largo\uF802");
+            // for (char c : slime.getCustomName().toCharArray()) System.out.println(c);
             //slime.setCustomName(ChatColor.AQUA.toString()+"Largo");
             //for (char i : Objects.requireNonNull(slime.getCustomName()).toCharArray()) {
             //    plugin.getLogger().info(String.valueOf(i));
