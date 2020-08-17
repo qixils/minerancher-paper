@@ -4,14 +4,13 @@ import io.github.lexikiq.minerancher.Minerancher;
 import io.github.lexikiq.minerancher.SlimeType;
 import org.bukkit.entity.Slime;
 
-public class RockSlime extends BaseSlime {
-    // TODO: rock slimes should hurt players
-    public RockSlime(Slime slime, Minerancher plugin) {
+public class PhosphorSlime extends BaseSlime {
+    public PhosphorSlime(Slime slime, Minerancher plugin) {
         super(slime, plugin);
     }
 
     @Override
     protected void initializeData() {
-        type = SlimeType.ROCK_SLIME;
+        type= SlimeType.PHOSPHOR_SLIME;
     }
 }
