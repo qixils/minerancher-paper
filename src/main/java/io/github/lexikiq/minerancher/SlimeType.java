@@ -37,7 +37,7 @@ public enum SlimeType {
 
 	SlimeType(Class<? extends BaseSlime> slimeClass, char codepoint) {
 		this.slimeClass = slimeClass;
-		this.name = WordUtils.capitalizeFully(toString().replaceAll("_", ""));
+		this.name = WordUtils.capitalizeFully(toString().replaceAll("_", " "));
 		this.codepoint = codepoint;
 	}
 
