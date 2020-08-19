@@ -67,6 +67,7 @@ public class BasicListeners implements Listener {
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         if (event.getRightClicked().getType() == EntityType.SLIME) {
             Slime slime = (Slime) event.getRightClicked();
+            if (!event.getPlayer().getUniqueId().equals(UUID.fromString("d1de9ca8-78f6-4aae-87a1-8c112f675f12"))) return;
             if (event.getPlayer().isSneaking()) {
                 plugin.registerSlime(slime, SlimeType.TARR, true);
             } else {
