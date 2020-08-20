@@ -8,6 +8,7 @@ import org.bukkit.entity.Slime;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -27,7 +28,10 @@ public class BasicListeners implements Listener {
 
     @EventHandler
     public void onMobSpawn(CreatureSpawnEvent event) {
-        if (event.getEntityType() == EntityType.SLIME) {
+        if (event.getEntityType() == EntityType.PHANTOM) {
+            event.getLocation().getWorld().spawnEntity(event.getLocation(), EntityType.SLIME);
+            event.setCancelled(true);
+        } else if (event.getEntityType() == EntityType.SLIME) {
             if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SLIME_SPLIT) {
                 event.setCancelled(true);
             } else {
@@ -64,8 +68,11 @@ public class BasicListeners implements Listener {
         BaseSlime slime = plugin.loadedSlimes.get(key);
         if (slime != null) {
             Slime entity = slime.getSlime();
-            ItemStack slimeballs = new ItemStack(Material.SLIME_BALL, rand.nextInt(4));
-            entity.getWorld().dropItemNaturally(entity.getLocation(), slimeballs);
+            int slimeballCount = rand.nextInt(4);
+            if (slimeballCount > 0) {
+                ItemStack slimeballs = new ItemStack(Material.SLIME_BALL, slimeballCount);
+                entity.getWorld().dropItemNaturally(entity.getLocation(), slimeballs);
+            }
             slime.destroy();
             plugin.loadedSlimes.remove(key);
             slime.getSlime().remove(); // workaround for semicommon bug where slimes will ignore death
@@ -95,6 +102,13 @@ public class BasicListeners implements Listener {
             //for (char i : Objects.requireNonNull(slime.getCustomName()).toCharArray()) {
             //    plugin.getLogger().info(String.valueOf(i));
             //}
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.FALL && event.getEntityType() == EntityType.SLIME) {
+            event.setCancelled(true);
         }
     }
 }
