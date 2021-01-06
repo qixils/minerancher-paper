@@ -1,5 +1,7 @@
 # Minerancher [![Maven CI](https://github.com/lexikiq/minecraft-slime-rancher/workflows/Maven%20CI/badge.svg?event=push)](https://github.com/lexikiq/minecraft-slime-rancher/actions?query=workflow%3A%22Maven+CI%22)
 
+[This project has been succeeded.](https://github.com/lexikiq/minerancher)
+
 Minerancher is a heavily work-in-progress 1.16.1 [Paper](https://papermc.io/) plugin that is aiming to recreate [Slime Rancher](http://slimerancher.com/) inside of Minecraft.
 
 Code is definitely sloppy as this is a learning experience for me for Java and plugins but I hope it isn't too bad to understand :)
